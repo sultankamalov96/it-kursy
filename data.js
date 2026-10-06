@@ -10,7 +10,7 @@ window.SITE = {
      * Ссылка на веб-приложение Google Apps Script (см. README.md, шаг «Google Таблица»).
      * Пока пусто — форма отправляет заявку в WhatsApp.
      */
-    googleScriptUrl: '',
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbw372K4DIfVqW1qdG5apUTfghNIRYgni7ZcrOLhrQNxId7UYqkJbmrHNp-_Iwk25ah6/exec',
 
     /* ---------- Контакты и общие настройки ---------- */
     settings: {
