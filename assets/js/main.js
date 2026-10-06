@@ -5,6 +5,7 @@
     const SITE = window.SITE || {};
     const S = SITE.settings || {};
     const courses = SITE.courses || [];
+    const programs = SITE.programs || {};
     const months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
 
     /* ---------- Хелперы ---------- */
@@ -58,6 +59,7 @@
                     ${(c.topics || []).map((t) => `<li>${esc(t)}</li>`).join('')}
                     <li class="chip-accent">Практические проекты</li>
                 </ul>
+                ${programs[c.id] ? `<a href="#programma-${esc(c.id)}" class="btn btn-ghost btn-block dir-more" data-program="${esc(c.id)}">Программа и проекты</a>` : ''}
                 <div class="dir-foot">
                     <span class="dir-price">${money(c.price)} ${esc(S.currency)} <small>${esc(c.pricePeriod)}</small></span>
                     <a href="#zayavka" class="link-arrow" data-course="${esc(c.id)}">Записаться <span aria-hidden="true">→</span></a>
@@ -304,6 +306,103 @@
         }
         statusEl.classList.add('err');
     });
+
+    /* ---------- Окно «Программа и проекты» ---------- */
+    const dlg = $('#course-dialog');
+    const monthWord = (n) => (n % 10 === 1 && n % 100 !== 11 ? 'месяц' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'месяца' : 'месяцев');
+
+    function renderProgram(c, p) {
+        const facts = [
+            ['Стоимость', `${money(c.price)} ${S.currency || ''} ${c.pricePeriod || ''}`],
+            ['Длительность', c.duration],
+            ['Занятия', c.lessons],
+            ['Формат', c.format],
+        ].filter(([, v]) => v && String(v).trim());
+        const months = p.months || [];
+        return `
+        <div class="cdlg-in c-${esc(c.color)}">
+            <header class="cdlg-head">
+                <div>
+                    <p class="dir-top"><span class="gem" aria-hidden="true"></span><span class="dir-stack">${esc(c.stack)}</span></p>
+                    <h2 id="cdlg-title" tabindex="-1" autofocus>${esc(c.title)}</h2>
+                </div>
+                <button type="button" class="cdlg-close" data-close aria-label="Закрыть">×</button>
+            </header>
+
+            <dl class="cdlg-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+
+            ${(p.outcomes || []).length ? `
+            <section class="cdlg-sec">
+                <h3>Чему научишься</h3>
+                <ul class="cdlg-check">${p.outcomes.map((o) => `<li>${esc(o)}</li>`).join('')}</ul>
+            </section>` : ''}
+
+            ${months.length ? `
+            <section class="cdlg-sec">
+                <h3>Программа: ${months.length} ${monthWord(months.length)}</h3>
+                <ol class="cdlg-months">
+                    ${months.map((m, i) => `
+                    <li>
+                        <span class="cdlg-mn">Месяц ${i + 1}</span>
+                        <div>
+                            <h4>${esc(m.title)}</h4>
+                            <ul class="cdlg-topics">${(m.topics || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+                            ${m.project ? `<p class="cdlg-proj"><b>Проект</b>${esc(m.project)}</p>` : ''}
+                        </div>
+                    </li>`).join('')}
+                </ol>
+            </section>` : ''}
+
+            ${p.finalProject ? `
+            <section class="cdlg-sec cdlg-final">
+                <p class="cdlg-label">Итоговый проект</p>
+                <h3>${esc(p.finalProject.title)}</h3>
+                <p>${esc(p.finalProject.text)}</p>
+            </section>` : ''}
+
+            ${(p.requirements || []).length ? `
+            <section class="cdlg-sec">
+                <h3>Что нужно для старта</h3>
+                <ul class="cdlg-req">${p.requirements.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+            </section>` : ''}
+
+            <footer class="cdlg-foot">
+                <span class="dir-price">${money(c.price)} ${esc(S.currency)} <small>${esc(c.pricePeriod)}</small></span>
+                <a href="#zayavka" class="btn" data-course="${esc(c.id)}" data-close>Записаться на курс <span aria-hidden="true">→</span></a>
+            </footer>
+        </div>`;
+    }
+
+    function openProgram(id) {
+        const c = courseById(id);
+        const p = programs[id];
+        if (!c || !p || typeof dlg.showModal !== 'function') return false;
+        dlg.innerHTML = renderProgram(c, p);
+        if (!dlg.open) dlg.showModal();
+        dlg.scrollTop = 0;
+        history.replaceState(null, '', '#programma-' + id);
+        return true;
+    }
+
+    dlg.addEventListener('close', () => {
+        if (location.hash.startsWith('#programma-')) history.replaceState(null, '', location.pathname + location.search);
+    });
+    // клик по затемнённому фону закрывает окно
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+    document.addEventListener('click', (e) => {
+        const open = e.target.closest('[data-program]');
+        if (open && openProgram(open.dataset.program)) { e.preventDefault(); return; }
+        if (e.target.closest('[data-close]')) dlg.close();
+    });
+
+    // Прямая ссылка: …/#programma-mobile
+    const fromHash = () => {
+        const m = location.hash.match(/^#programma-([\w-]+)$/);
+        if (m) openProgram(m[1]);
+    };
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
 
     /* ---------- Копирование готовых текстов ---------- */
     document.addEventListener('click', async (e) => {
