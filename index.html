@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT-КУРСЫ — программирование с нуля: Flutter, Frontend, Python</title>
+<meta name="description" content="Курсы программирования с нуля: мобильные приложения на Flutter, Frontend-разработка и Backend на Python. Практика на каждом занятии и свой проект в портфолио.">
+<meta name="theme-color" content="#16295E">
+<meta property="og:title" content="IT-КУРСЫ — не просто изучай код, создавай свои проекты">
+<meta property="og:description" content="Мобильные приложения, Frontend и Backend на Python с нуля.">
+<meta property="og:image" content="assets/img/logo.png">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<header class="site-header" id="top">
+    <div class="wrap header-row">
+        <a href="#top" class="logo" aria-label="IT-КУРСЫ — на главную">
+            <img src="assets/img/logo.png" alt="IT-КУРСЫ · код · идея · проект" width="172" height="61">
+        </a>
+        <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="nav" class="nav">
+            <a href="#napravleniya">Направления</a>
+            <a href="#ceny">Цены</a>
+            <a href="#raspisanie">Расписание</a>
+            <a href="#faq">Вопросы</a>
+            <a href="#kontakty">Контакты</a>
+            <a href="#zayavka" class="btn btn-sm">Записаться</a>
+        </nav>
+    </div>
+</header>
+
+<main id="main">
+
+<!-- ===== Первый экран ===== -->
+<section class="hero">
+    <div class="wrap hero-grid">
+        <div class="hero-text">
+            <p class="badge"><span class="pulse" aria-hidden="true"></span><span data-set="badge"></span></p>
+            <h1>Не просто изучай код — <span class="hl">создавай свои проекты!</span></h1>
+            <p class="lead">Научись программировать с нуля. Создавай свои приложения и сайты. Начни путь в IT — от первой строчки кода до готового проекта в портфолио.</p>
+            <div class="hero-actions">
+                <a href="#zayavka" class="btn btn-lg">Записаться на курс <span aria-hidden="true">→</span></a>
+                <a href="#napravleniya" class="btn btn-lg btn-ghost">Выбрать направление</a>
+            </div>
+            <ul class="hero-facts">
+                <li>Даже если никогда не писал код</li>
+                <li data-set="priceNote"></li>
+            </ul>
+        </div>
+        <!-- Знак из логотипа: каждая плитка — направление (заполняется из data.js) -->
+        <div class="mark" id="mark" aria-label="Направления курсов"></div>
+    </div>
+</section>
+
+<noscript><p class="wrap empty">Чтобы увидеть направления, цены и расписание, включите JavaScript в браузере.</p></noscript>
+
+<!-- ===== Путь ===== -->
+<section class="section path" aria-labelledby="path-h">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2 id="path-h">Путь от первой строки до проекта</h2>
+            <p class="sec-note">Четыре шага — в любом направлении</p>
+        </div>
+        <ol class="steps">
+            <li class="step c-blue">
+                <span class="step-n">Шаг 1 · Первые строки</span>
+                <code>print("Привет, мир!")</code>
+                <p>Понимаешь, как думает компьютер</p>
+            </li>
+            <li class="step c-orange">
+                <span class="step-n">Шаг 2 · Интерфейс</span>
+                <code>&lt;button&gt;Начать&lt;/button&gt;</code>
+                <p>Создаёшь экраны и страницы</p>
+            </li>
+            <li class="step c-green">
+                <span class="step-n">Шаг 3 · Данные</span>
+                <code>GET /api/users → 200 OK</code>
+                <p>Подключаешь базы данных и API</p>
+            </li>
+            <li class="step step-final c-purple">
+                <span class="step-n">Шаг 4 · Проект</span>
+                <strong>Своё приложение в портфолио</strong>
+                <p>Запускаешь и показываешь миру</p>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<!-- ===== Направления ===== -->
+<section class="section" id="napravleniya" aria-labelledby="dir-h">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2 id="dir-h">Направления</h2>
+            <p class="sec-note">Выбери, что хочешь создавать</p>
+        </div>
+        <div class="dirs" id="dirs"></div>
+    </div>
+</section>
+
+<!-- ===== Для кого / Почему ===== -->
+<section class="section section-mist" aria-label="Для кого курсы и почему с нами">
+    <div class="wrap two-col">
+        <div>
+            <h2>Для кого</h2>
+            <ul class="who" id="who"></ul>
+        </div>
+        <div>
+            <h2>Почему с нами</h2>
+            <ul class="why" id="why"></ul>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Баннер ===== -->
+<section class="wrap">
+    <div class="banner">
+        <div class="banner-mark" aria-hidden="true"><i class="c-blue"></i><i class="c-orange"></i><i class="c-green"></i><i class="c-purple"></i></div>
+        <p class="banner-code">&gt; набор_на_курсы.start()</p>
+        <h2>Код сегодня — проект завтра</h2>
+        <p>Мобильные приложения, сайты и backend на Python. С нуля, на практике, с поддержкой преподавателя.</p>
+        <a href="#zayavka" class="btn btn-lg btn-light">Записаться сейчас <span aria-hidden="true">→</span></a>
+    </div>
+</section>
+
+<!-- ===== Цены ===== -->
+<section class="section" id="ceny" aria-labelledby="price-h">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2 id="price-h">Цены и формат</h2>
+            <p class="sec-note" data-set="priceNote"></p>
+        </div>
+        <div class="prices" id="prices"></div>
+    </div>
+</section>
+
+<!-- ===== Расписание ===== -->
+<section class="section section-mist" id="raspisanie" aria-labelledby="sch-h">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2 id="sch-h">Расписание групп</h2>
+            <p class="sec-note">Количество мест в группе ограничено</p>
+        </div>
+        <div id="schedule"></div>
+    </div>
+</section>
+
+<!-- ===== Заявка ===== -->
+<section class="section" id="zayavka" aria-labelledby="form-h">
+    <div class="wrap form-grid">
+        <div class="form-intro">
+            <h2 id="form-h">Запишись на&nbsp;курс</h2>
+            <p>Оставь имя и телефон. Мы перезвоним, ответим на вопросы и подберём удобную группу.</p>
+            <p class="form-alt">Удобнее в мессенджере?<br><a href="#zayavka" data-wa target="_blank" rel="noopener" class="link-arrow">Написать в WhatsApp <span aria-hidden="true">→</span></a></p>
+        </div>
+        <form class="lead-form" id="lead-form" novalidate>
+            <div class="field">
+                <label for="f-name">Имя</label>
+                <input id="f-name" name="name" required minlength="2" maxlength="100" autocomplete="name" placeholder="Как к вам обращаться">
+                <p class="field-err" id="f-name-err"></p>
+            </div>
+            <div class="field">
+                <label for="f-phone">Телефон</label>
+                <input id="f-phone" name="phone" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="+996 700 123 456">
+                <p class="field-err" id="f-phone-err"></p>
+            </div>
+            <div class="field">
+                <label for="f-course">Направление</label>
+                <select id="f-course" name="course">
+                    <option value="">Ещё не решил — помогите выбрать</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="f-msg">Комментарий <span class="opt">необязательно</span></label>
+                <textarea id="f-msg" name="message" rows="3" maxlength="1000" placeholder="Возраст ученика, удобное время, вопросы"></textarea>
+                <p class="field-err" id="f-message-err"></p>
+            </div>
+            <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
+            <button class="btn btn-lg btn-block" type="submit">Отправить заявку</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <p class="form-legal">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        </form>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section section-mist" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+        <h2 id="faq-h">Частые вопросы</h2>
+        <div class="faq" id="faq-list"></div>
+    </div>
+</section>
+
+<!-- ===== Готовые тексты ===== -->
+<section class="section" id="teksty" aria-labelledby="txt-h">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2 id="txt-h">Расскажи друзьям</h2>
+            <p class="sec-note">Готовые тексты: скопируй и отправь</p>
+        </div>
+        <div class="texts" id="texts"></div>
+    </div>
+</section>
+
+<!-- ===== Финал ===== -->
+<section class="final">
+    <div class="wrap">
+        <p class="sec-note">Количество мест в группе ограничено</p>
+        <h2>Начни свой путь в IT <span class="hl">уже сейчас</span></h2>
+        <p class="lead">Запишись на курс и создай свой первый проект. Оставь заявку — мы поможем выбрать направление.</p>
+        <div class="hero-actions center">
+            <a href="#zayavka" class="btn btn-lg">Записаться на курс <span aria-hidden="true">→</span></a>
+            <a href="#zayavka" data-wa target="_blank" rel="noopener" class="btn btn-lg btn-ghost">Написать в WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer" id="kontakty">
+    <div class="wrap foot-grid">
+        <div>
+            <img src="assets/img/logo.png" alt="IT-КУРСЫ" width="168" height="60" class="foot-logo">
+            <p class="muted">Курсы программирования с нуля: мобильные приложения, Frontend и Backend на Python.</p>
+        </div>
+        <div>
+            <h3>Контакты</h3>
+            <ul class="foot-list" id="foot-contacts"></ul>
+        </div>
+        <div>
+            <h3>Адрес</h3>
+            <ul class="foot-list" id="foot-address"></ul>
+        </div>
+        <div>
+            <h3>Соцсети</h3>
+            <ul class="foot-list" id="foot-social"></ul>
+        </div>
+    </div>
+    <div class="wrap foot-bottom">
+        <span>© <span id="year">2026</span> IT-КУРСЫ</span>
+        <span class="tagline"><b class="t-blue">код</b> · <b class="t-orange">идея</b> · <b class="t-green">проект</b></span>
+    </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
